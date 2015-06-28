@@ -49,15 +49,31 @@ $canvas.mousedown(function(e){
   lastEvent = e;
   mouseDown = true;
 }).mousemove(function(e){
-  //Draw lines
   if(mouseDown) {
+       if(lastEvent.offsetX == undefined){ // this works for Firefox
+        lastEventposX = lastEvent.pageX-$canvas.offset().left;
+        lastEventposY = lastEvent.pageY-$canvas.offset().top;
+      } else {
+        lastEventposX = lastEvent.offsetX;
+        lastEventposY = lastEvent.offsetY;
+      } 
+
+      if(e.offsetX == undefined){ // this works for Firefox
+        xpos = e.pageX-$canvas.offset().left;
+        ypos = e.pageY-$canvas.offset().top;
+      } else {
+        xpos = e.offsetX;
+        ypos = e.offsetY;
+      } 
+
     context.beginPath();
-    context.moveTo(lastEvent.offsetX, lastEvent.offsetY);
-    context.lineTo(e.offsetX, e.offsetY);
+    context.moveTo(lastEventposX, lastEventposY);
+    context.lineTo(xpos, ypos);
     context.strokeStyle = color;
     context.stroke();
     lastEvent = e;
   }
+})
 }).mouseup(function(){
   mouseDown = false;
 }).mouseleave(function(){
