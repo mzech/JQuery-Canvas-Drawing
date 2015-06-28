@@ -51,6 +51,7 @@ $("#addNewColor").click(function(){
 var startEventType = 'mousedown',
     endEventType   = 'mouseup';
 
+//Downloaded a JS file from http://modernizr.com/download/#-canvas-canvastext-touch-shiv-cssclasses-teststyles-prefixes-load
 if (Modernizr.touch === true) {
     startEventType = 'touchstart';
     endEventType   = 'touchend';
