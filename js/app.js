@@ -45,11 +45,21 @@ $("#addNewColor").click(function(){
 });
 
 //On mouse events on the canvas
-$canvas.mousedown(function(e){
+//Touch events for phone apps or IPads
+
+//determine which events to use
+var startEventType = 'mousedown',
+    endEventType   = 'mouseup';
+
+if (Modernizr.touch === true) {
+    startEventType = 'touchstart';
+    endEventType   = 'touchend';
+}
+$canvas.startEventType(function(e){
   lastEvent = e;
-  mouseDown = true;
+  startEventType = true;
 }).mousemove(function(e){
-  if(mouseDown) {
+  if(startEventType) {
        if(lastEvent.offsetX == undefined){ // this works for Firefox
         lastEventposX = lastEvent.pageX-$canvas.offset().left;
         lastEventposY = lastEvent.pageY-$canvas.offset().top;
@@ -74,10 +84,10 @@ $canvas.mousedown(function(e){
     lastEvent = e;
   }
 })
-}).mouseup(function(){
-  mouseDown = false;
+}).endEventType(function(){
+  startEventType = false;
 }).mouseleave(function(){
-  $canvas.mouseup();
+  $canvas.endEventType();
 });
 
 
